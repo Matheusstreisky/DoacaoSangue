@@ -1,0 +1,69 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <title>Doação de Sangue</title>
+    </h:head>
+    <h:body>
+        <h2 align="center">Seja voluntário para Doação de Sangue</h2>
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="5">
+                <p:outputLabel value="Nome:"/>
+                <h:inputText value="#{voluntarioController.voluntario.nome}" disabled="#{!voluntarioController.enabled}"/>
+
+                <p:outputLabel value="Idade:"/>
+                <h:inputText value="#{voluntarioController.voluntario.idade}" disabled="#{!voluntarioController.enabled}"/>
+
+                <p:outputLabel value="Sexo:"/>
+                <h:selectOneMenu value="#{voluntarioController.voluntario.sexo}" disabled="#{!voluntarioController.enabled}">
+                    <f:selectItems value="#{voluntarioController.listaSexos}"/>
+                </h:selectOneMenu>
+
+                <p:outputLabel value="Tipo Sanguíneo:"/>
+                <h:selectOneMenu value="#{voluntarioController.voluntario.tipoSanguineo}" disabled="#{!voluntarioController.enabled}">
+                    <f:selectItems value="#{voluntarioController.listaTiposSanguineos}"/>
+                </h:selectOneMenu>
+
+                <p:outputLabel value="Observações:"/>
+                <h:inputTextarea value="#{voluntarioController.voluntario.observacao}" disabled="#{!voluntarioController.enabled}"/>
+            </h:panelGrid>
+            <p:outputLabel value="#{voluntarioController.message}" style="color:red"/>
+            <br/><br/>
+            <h:commandButton value="Novo" action="#{voluntarioController.newVoluntario()}" disabled="#{!voluntarioController.btnNew}"/>
+            <h:commandButton value="Salvar" action="#{voluntarioController.saveVoluntario()}" disabled="#{!voluntarioController.btnSave}"/>
+            <h:commandButton value="Excluir" action="#{voluntarioController.deleteVoluntario()}" disabled="#{!voluntarioController.btnDelete}"/>
+            <h:commandButton value="Cancel" action="#{voluntarioController.cancelVoluntario()}" disabled="#{!voluntarioController.btnCancel}"/>
+        </h:form>
+
+
+        <h:form>
+            <h2 align="center">Lista de Voluntários</h2>
+            <h:dataTable value="#{voluntarioController.findAllVoluntarios()}" var="voluntario" border="0" cellpadding="2" cellspacing="5" style="border:solid 2px" width="100%">
+
+                <h:column>
+                    <f:facet name="header">Nome</f:facet>
+                    <h:outputText value="#{voluntario.nome}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Idade</f:facet>
+                    <h:outputText value="#{voluntario.idade}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Sexo</f:facet>
+                    <h:outputText value="#{voluntario.sexo}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Tipo Sanguíneo</f:facet>
+                    <h:outputText value="#{voluntario.tipoSanguineo}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">-</f:facet>
+                    <h:commandButton value="Editar" action="#{voluntarioController.editVoluntario(voluntario.id)}" disabled="#{!voluntarioController.btnEdit}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</f:view>
