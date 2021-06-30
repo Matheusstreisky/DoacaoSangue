@@ -34,6 +34,15 @@ public class Voluntario {
         this.observacao = observacao;
     }
 
+    public Voluntario(Long id, String nome, int idade, String sexo, String tipoSanguineo, String observacao) {
+        this.id = id;
+        this.nome = nome;
+        this.idade = idade;
+        this.sexo = sexo;
+        this.tipoSanguineo = tipoSanguineo;
+        this.observacao = observacao;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="GETS and SETS">
     public Long getId() {
         return id;
